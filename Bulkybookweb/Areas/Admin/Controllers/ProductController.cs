@@ -111,7 +111,7 @@ namespace Bulkybookweb.Areas.Admin.Controllers
                         productImage.CopyTo(fileStreams);
 
                     }
-                    obj.Product.ImageUrl=@"\Images\Product\"+filename+extension;
+                    obj.Product.ImageUrl=filename+extension;
                 }
                 if (obj.Product.Id == 0)
                 {
@@ -166,26 +166,22 @@ namespace Bulkybookweb.Areas.Admin.Controllers
 
             return View(productvm);
         }
-        [HttpPost ,ActionName("Delete")]
-        public IActionResult DeletePost(int? Id)
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeletePost(int? id )
         {
-            var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == Id);
-            if (obj == null)
+            var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
-            var oldimagePath = Path.Combine(_housingEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+            else
             {
-                if (System.IO.File.Exists(oldimagePath))
-                {
-                    System.IO.File.Delete(oldimagePath);
-                }
+                _unitOfWork.Product.Remove(product);
+                _unitOfWork.Save();
             }
-            _unitOfWork.Product.Remove(obj);
-            _unitOfWork.Save();
-            return Json (new {success =true , message = "Delete successfull"});
-
             return RedirectToAction("Index");
+           
 
         }
         #region API Calls

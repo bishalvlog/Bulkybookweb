@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BulkyBooks.Utilitys;
+using Microsoft.Extensions.FileProviders;
+using BulkyBook.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +33,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(@"E:\Images\", "Product")),
+    RequestPath = "/Product"
+});
+
 
 app.UseRouting();
 app.UseAuthentication();
