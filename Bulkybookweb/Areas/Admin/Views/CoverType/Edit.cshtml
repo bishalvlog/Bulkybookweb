@@ -1,0 +1,22 @@
+﻿@model CoverType;
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<form method="post" asp-action="Edit" asp-controller="CoverType">
+    <div class="border p-3 mt-4">
+      <div class="row pb-2">
+        <h2 class="text-primary">Edit Category</h2>
+      </div>
+    </div>
+       <div class="mb-3">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+       </div>
+
+        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+         <a asp-controller="CoverType" asp-action="CoverTypeList" class="btn btn-outline-primary" style="width:150px">Back to List</a>
+</form>
+

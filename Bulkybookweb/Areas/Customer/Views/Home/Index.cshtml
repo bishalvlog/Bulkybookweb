@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BulkyBook.Models.Product>
+<div class="row pb-3">
+    
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius :5px; ">
+                    <div class="card">
+                        <img src="@product.ImageUrl" class="card-img-top rounded"/>
+                        <div class="pl-1">
+                            <p class="card-title h5 text-primary">@product.Title</p>
+                            <p class ="card-title h5 text-info">@product.Author</p>
+                        </div>
+                        <div class="pl-1">
+                            <p> List Price :<strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
+                 
+                        </div>
+                        <div class="pl-1">
+                            <p> as low as :<b>$@product.Price100.ToString("0.00")</b></p>
+                        </div>
+                    </div>
+                    <div>
+                        <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@product.Id"> Details</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ]
+        });
+</script>
+     

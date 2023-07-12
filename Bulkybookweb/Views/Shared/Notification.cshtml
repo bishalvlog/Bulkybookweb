@@ -1,0 +1,26 @@
+﻿@if (TempData["Create"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.main.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript">
+    </script>
+    <h2>@TempData["Create"]</h2>
+}
+@if (TempData["error"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.main.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <h2>@TempData["error"]</h2>
+}
+@if (TempData["Delete"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.main.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<h2>@TempData["Delete"]</h2>
+}
+@if (TempData["Edit"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.main.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <h2>@TempData["Edit"]</h2>
+}

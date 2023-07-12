@@ -1,0 +1,60 @@
+﻿@model List<Company>
+
+<partial name="Notification"/>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Company  List </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Company" asp-action="Upsert" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create new Company
+            </a>
+        </div>
+    </div>
+</div>
+
+<table id="tbldata" class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>StreetAddress</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Phone Number</th>  
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.StreetAddress</td>
+                <td>@item.City</td>
+                <td>@item.State</td>
+                <td>@item.PhoneNumber</td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a href="/Admin/Company/Upsert?id=@item.Id"
+                           class="btn btn-primary">
+                            <i class="bi bi-pencil"></i>
+                            Edit
+                        </a>
+                        <a href="/Admin/Company/Delete=@item.Id"
+                        class="btn btn-danger">
+                            <i class="bi bi-trash3"></i>
+                            Delete
+                        </a>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </thead>
+</table>
+
+@section Scripts{
+    <script>
+        $("#tbldata").DataTable();
+    </script>
+}
+
