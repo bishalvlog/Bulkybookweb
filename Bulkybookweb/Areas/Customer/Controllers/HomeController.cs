@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,11 +9,12 @@ using System.Security.Claims;
 namespace Bulkybookweb.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-
+       
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
@@ -45,7 +47,7 @@ namespace Bulkybookweb.Areas.Customer.Controllers
             shoppingCard.ApplicationUserId = claim.Value;
 
             ShoppingCard carddb = _unitOfWork.ShoppingCard.GetFirstOrDefault(u=>u.ApplicationUserId==claim.Value && u.ProductId==shoppingCard.ProductId);
-            if(carddb != null)
+            if(carddb == null)
             {
                 _unitOfWork.ShoppingCard.Add(shoppingCard);
             }
