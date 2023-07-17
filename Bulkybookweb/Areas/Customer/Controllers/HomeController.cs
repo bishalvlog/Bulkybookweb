@@ -25,7 +25,7 @@ namespace Bulkybookweb.Areas.Customer.Controllers
             return View(products);
         }
         public IActionResult Details(int productId)
-        {
+         {
             ShoppingCard cardobj = new()
             {
                 Count = 1,
