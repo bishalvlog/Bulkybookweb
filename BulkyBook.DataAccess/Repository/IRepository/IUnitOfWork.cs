@@ -6,6 +6,9 @@
         ICoverTypesRepository CoverType { get; }
         IProductRepository Product { get; }
         ICompanyRepository Company { get; }
+        IApplicationUserRepositor ApplicationUser { get; }
+        IShoppingCardRepository ShoppingCard { get; }
+
 
 
         void Save();

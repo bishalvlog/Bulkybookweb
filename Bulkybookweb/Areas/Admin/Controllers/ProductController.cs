@@ -65,9 +65,7 @@ namespace Bulkybookweb.Areas.Admin.Controllers
             };
             if (Id == null || Id == 0)
             {
-             /*   ViewBag.categorylist = categorylist;
-                ViewData["covertype"] = covertype;*/
-                //create product
+            
                 return View(productvm);
             }
             else
@@ -152,9 +150,7 @@ namespace Bulkybookweb.Areas.Admin.Controllers
             };
             if (Id == null || Id == 0)
             {
-                /*   ViewBag.categorylist = categorylist;
-                   ViewData["covertype"] = covertype;*/
-                //create product
+                
                 return View(productvm);
             }
             else
@@ -171,6 +167,7 @@ namespace Bulkybookweb.Areas.Admin.Controllers
         public IActionResult DeletePost(int? id )
         {
             var product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+
             if (product == null)
             {
                 return NotFound();

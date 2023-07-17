@@ -6,7 +6,7 @@
     {
         <div class="col-lg-3 col-md-6">
             <div class="row p-2">
-                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius :5px; ">
+                <div class="col-12 p-1" style="border:1px  #008cba; border-radius :5px; ">
                     <div class="card">
                         <img src="\Product\@product.ImageUrl" class="card-img-top rounded" width="100" style="border-radius:5px; border:1px solid #bbb9b9" />
                         <div class="pl-1">
@@ -22,8 +22,7 @@
                         </div>
                     </div>
                     <div>
-                        <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@product.Id"> Details</a>
-
+                        <a asp-action="Details" class="btn btn-primary form-control" asp-route-productId="@product.Id"> Details</a>
                     </div>
                 </div>
             </div>
