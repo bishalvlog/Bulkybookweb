@@ -15,7 +15,9 @@ namespace BulkyBook.DataAccess.Repository
             Product = new ProductRepository (_context); 
             Company = new CompanyRepository (_context); 
             ApplicationUser = new ApplicationUserRepository (_context);
-            ShoppingCard = new ShoppingCardRepository (_context);   
+            ShoppingCard = new ShoppingCardRepository (_context);
+            OrderHead = new OrderHeadRepository(_context);
+            OrderDetails = new OrderDetailsRepository (_context);
         }
         public ICategoryRepository Category { get; private set; }  
         public ICoverTypesRepository CoverType { get; private set; }
@@ -23,8 +25,10 @@ namespace BulkyBook.DataAccess.Repository
         public ICompanyRepository Company { get; private set; }
         public IApplicationUserRepositor ApplicationUser { get; private set; }
         public IShoppingCardRepository ShoppingCard { get; private set; }
+        public IOrderHeadRepository OrderHead { get; private set; }
+        public IOrderDetailsRepository OrderDetails { get; private set; }
 
-
+      
         public void Save()
         {
             _context.SaveChanges();

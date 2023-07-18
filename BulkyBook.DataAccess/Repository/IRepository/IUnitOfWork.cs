@@ -8,6 +8,8 @@
         ICompanyRepository Company { get; }
         IApplicationUserRepositor ApplicationUser { get; }
         IShoppingCardRepository ShoppingCard { get; }
+        IOrderDetailsRepository OrderDetails { get; }
+        IOrderHeadRepository OrderHead { get; } 
 
 
 

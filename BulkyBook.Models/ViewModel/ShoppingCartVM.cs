@@ -9,6 +9,6 @@ namespace BulkyBook.Models.ViewModel
     public class ShoppingCartVM
     {
         public  IEnumerable<ShoppingCard> ListCart { get; set; }
-        public double cardTotal { get; set; }   
+        public orderHead orderHead { get; set; }
     }
 }

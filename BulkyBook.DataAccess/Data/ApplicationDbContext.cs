@@ -18,5 +18,7 @@ namespace Bulkybookweb.DataAccess
         public DbSet<ApplicationUser> Applicationusers { get; set; }
         public DbSet<Company> companys { get; set; }  
         public DbSet<ShoppingCard> shoppingcards { get; set;}
+        public DbSet<orderHead> orderheads { get; set; }    
+        public DbSet<OrderDetails> orderDetails { get; set; }   
     }
 }

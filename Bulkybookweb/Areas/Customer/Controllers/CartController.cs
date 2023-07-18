@@ -28,12 +28,13 @@ namespace Bulkybookweb.Areas.Customer.Controllers
 
             ShoppingCartVM = new ShoppingCartVM()
             {
-                ListCart = _unitOfWork.ShoppingCard.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product")
+                ListCart = _unitOfWork.ShoppingCard.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product"),
+                orderHead = new ()
             };
             foreach (var cart in ShoppingCartVM.ListCart)
             {
                 cart.Price =GetPriceBaseOnQuantity(cart.Count,cart.Product.Price, cart.Product.Price50, cart.Product.Price100);
-                ShoppingCartVM.cardTotal += (cart.Price * cart.Count);
+                ShoppingCartVM.orderHead.OrderTotal += (cart.Price * cart.Count);
             }
             return View(ShoppingCartVM);
         }
@@ -47,6 +48,30 @@ namespace Bulkybookweb.Areas.Customer.Controllers
 
         public IActionResult Summary()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            ShoppingCartVM = new ShoppingCartVM()
+            {
+                ListCart = _unitOfWork.ShoppingCard.GetAll(u => u.ApplicationUserId == claim.Value,
+                includeProperties: "Product"),
+                orderHead = new()
+            };
+            ShoppingCartVM.orderHead.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault
+                (u => u.Id == claim.Value);
+
+            ShoppingCartVM.orderHead.Name = ShoppingCartVM.orderHead.ApplicationUser.Name;
+            ShoppingCartVM.orderHead.PhoneNumber = ShoppingCartVM.orderHead.ApplicationUser.PhoneNumber;
+            ShoppingCartVM.orderHead.StreetAddress = ShoppingCartVM.orderHead.ApplicationUser.StreetAddress;
+            ShoppingCartVM.orderHead.City = ShoppingCartVM.orderHead.ApplicationUser.City;
+            ShoppingCartVM.orderHead.State = ShoppingCartVM.orderHead.ApplicationUser.State;
+            ShoppingCartVM.orderHead.PostalCode = ShoppingCartVM.orderHead.ApplicationUser.PostalCode;
+
+            foreach (var cart in ShoppingCartVM.ListCart)
+            {
+                cart.Price = GetPriceBaseOnQuantity(cart.Count, cart.Product.Price, cart.Product.Price50, cart.Product.Price100);
+                ShoppingCartVM.orderHead.OrderTotal += (cart.Price * cart.Count);
+            }
             return View();
         }
         public IActionResult Minus (int cartId)

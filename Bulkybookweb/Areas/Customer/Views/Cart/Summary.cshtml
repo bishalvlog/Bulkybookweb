@@ -1,4 +1,6 @@
-﻿<form method="post">
+﻿@model BulkyBook.Models.ViewModel.ShoppingCartVM
+
+<form method="post">
     <br/>
     <div class="container">
         <div class="card">
@@ -8,7 +10,7 @@
                             <i class="fa fa-shopping-cart"></i>&nbsp; Order Summary
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn btn-outline-info btn-sm">
+                        <a asp-action="Index" class="btn btn-outline-info btn-sm">
                             Back to cart
                         </a>
 
@@ -27,6 +29,8 @@
                                     <div class="row my-1">
                                         <div class="col-3">
                                             <lable>Name</lable>
+                                            <input  asp-for="orderHead.Name" class="form-control"/>
+                                            <span asp-validation-for="orderHead.Name" class="text-danger"></span>
                                         </div>
                                         <div class="col-9">
                                             <input  class="form-control"/>
@@ -40,7 +44,8 @@
 
                                         </div>
                                         <div class="col-9">
-                                            <input class="form-control" />
+                                        <input asp-for="orderHead.PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="orderHead.PhoneNumber" class="text-danger"></span>
                                         </div>
 
                                     </div>
@@ -50,7 +55,8 @@
 
                                         </div>
                                         <div class="col-9">
-                                            <input class="form-control" />
+                                        <input asp-for="orderHead.StreetAddress" class="form-control" />
+                                        <span asp-validation-for="orderHead.StreetAddress" class="text-danger"></span>
 
                                         </div>
                                     </div>
@@ -60,7 +66,8 @@
 
                                         </div>
                                         <div class="col-9">
-                                            <input  class="form-control"/>
+                                        <input asp-for="orderHead.City" class="form-control" />
+                                        <span asp-validation-for="orderHead.City" class="text-danger"></span>
 
                                         </div>
 
@@ -70,8 +77,8 @@
                                             <label>State</label>
                                         </div>
                                         <div class="col-9">
-                                            <input class="form-control"/>
-
+                                        <input asp-for="orderHead.State" class="form-control" />
+                                        <span asp-validation-for="orderHead.State" class="text-danger"></span>
                                         </div>
 
                                     </div>
@@ -81,7 +88,8 @@
 
                                         </div>
                                         <div class="col-9">
-                                            <input  class="form-control"/>
+                                        <input asp-for="orderHead.PostalCode" class="form-control" />
+                                        <span asp-validation-for="orderHead.PostalCode" class="text-danger"></span>
 
                                         </div>
                                     </div>
