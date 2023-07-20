@@ -1,4 +1,6 @@
-﻿@model BulkyBook.Models.ViewModel.ShoppingCartVM
+﻿@model BulkyBook.Models.ViewModel.ShoppingCartVM;
+@using Microsoft.Extensions.Options
+@inject IOptions<BulkyBooks.Utilitys.StripeSetting> Stripe 
 
 <form method="post">
     <br/>
@@ -29,13 +31,11 @@
                                     <div class="row my-1">
                                         <div class="col-3">
                                             <lable>Name</lable>
+                                         </div>
+                                           <div class="col-9">
                                             <input  asp-for="orderHead.Name" class="form-control"/>
                                             <span asp-validation-for="orderHead.Name" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-9">
-                                            <input  class="form-control"/>
-
-                                        </div>
+                                          </div>
 
                                     </div>
                                     <div class="row my-1">
@@ -99,22 +99,27 @@
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                                     <span class="text-info">Order Summary:</span>
                                 </h4>
-                                <ui class="list-group mb-3">
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <div>
-                                            <h6 class="my-0">Title </h6>
-                                            <small class="text-muted"> Quality :Count</small>
-                                        </div>
-                                        <span class="text-muted">$$$</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between bg-light">
-                                        <small class="text-info">Total (USD)</small>
-                                        <strong class="text-info">$$$</strong>
+                                @foreach (var item in Model.ListCart)
+                                {
+                                    <ui class="list-group mb-3">
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <div>
+                                                <h6 class="my-0">@item.Product.Title </h6>
+                                                <small class="text-muted"> Quality :@item.Count</small>
+                                            </div>
+                                            <span class="text-muted">@((item.Price * item.Count).ToString("c"))</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between bg-light">
+                                            <small class="text-info">Total (USD)</small>
+                                            <strong class="text-info">@Model.orderHead.OrderTotal.ToString("c")</strong>
 
-                                    </li>
+                                        </li>
 
-                                </ui>
+                                    </ui>
 
+                                    
+                                }
+                               
                             </div>
 
                             </div>    
@@ -122,11 +127,12 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-12 col-md-8 pt-2">
-                                    <p style="color:maroon; font-size :14px;"> Estimate Arrival Date:</p>
-
+                                    <p style="color:maroon; font-size :14px;"> Estimate Arrival Date :
+                                    @DateTime.Now.AddDays(7).ToShortDateString() -@DateTime.Now.AddDays(14).ToShortDateString()
+                                </p>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Holder</button>
+                                    <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
 
                                 </div>
 
