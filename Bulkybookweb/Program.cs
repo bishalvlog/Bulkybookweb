@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BulkyBooks.Utilitys;
 using Microsoft.Extensions.FileProviders;
-using BulkyBook.Models;
-using Microsoft.Extensions.Options;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);

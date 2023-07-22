@@ -20,7 +20,6 @@ namespace BulkyBook.DataAccess.Repository
         {
             _context.orderheads.Update(orderHead);
         }
-
         public void UpdateStatus(int id, string OrderStatus, string? PaymentStatus = null)
         {
             var orderdbfrom = _context.orderheads.FirstOrDefault(o => o.Id == id);
@@ -32,6 +31,13 @@ namespace BulkyBook.DataAccess.Repository
                     orderdbfrom.PaymentsStatus = PaymentStatus; 
                 }
             }
+        }
+        public void UpdateStripePaymentID(int id, string sessionId, string  PaymentItenId)
+        {
+            var orderdbfrom = _context.orderheads.FirstOrDefault(o => o.Id == id);
+            orderdbfrom.SessionId =sessionId;
+            orderdbfrom.PaymentIntendId = PaymentItenId;
+           
         }
     }
 }
