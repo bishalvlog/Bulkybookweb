@@ -51,7 +51,15 @@ namespace Bulkybookweb.Areas.Customer.Controllers
         public IActionResult Summary()
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
+            if(claimsIdentity == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if(claim == null) 
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
             ShoppingCartVM = new ShoppingCartVM()
             {
@@ -59,6 +67,7 @@ namespace Bulkybookweb.Areas.Customer.Controllers
                 includeProperties: "Product"),
                 orderHead = new()
             };
+           
             ShoppingCartVM.orderHead.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault
                 (u => u.Id == claim.Value);
 
@@ -68,7 +77,6 @@ namespace Bulkybookweb.Areas.Customer.Controllers
             ShoppingCartVM.orderHead.City = ShoppingCartVM.orderHead.ApplicationUser.City;
             ShoppingCartVM.orderHead.State = ShoppingCartVM.orderHead.ApplicationUser.State;
             ShoppingCartVM.orderHead.PostalCode = ShoppingCartVM.orderHead.ApplicationUser.PostalCode;
-            
 
             foreach (var cart in ShoppingCartVM.ListCart)
             {
@@ -115,6 +123,8 @@ namespace Bulkybookweb.Areas.Customer.Controllers
                 _unitOfWork.OrderDetails.Add(orderDetails);
                 _unitOfWork.Save();
             }
+            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
+           
 
             //stripe setting 
             #region
@@ -130,8 +140,8 @@ namespace Bulkybookweb.Areas.Customer.Controllers
                 LineItems = new List<SessionLineItemOptions>(),
                    
                 Mode = "payment",
-                SuccessUrl = domain+$"customer/cart/OrderConfirmation?id={ShoppingCartVM.orderHead.Id}",
-                CancelUrl = domain+$"customer/cart/index",
+                SuccessUrl = domain+$"Customer/Cart/OrderConfirmation?id={ShoppingCartVM.orderHead.Id}",
+                CancelUrl = domain+$"Customer/Cart/Index",
             };
 
             foreach(var item in ShoppingCartVM.ListCart)
@@ -152,7 +162,6 @@ namespace Bulkybookweb.Areas.Customer.Controllers
                 };
                 options.LineItems.Add(sessionLineItem);
             }
-
             var service = new SessionService();
             Session session = service.Create(options);
             _unitOfWork.OrderHead.UpdateStripePaymentID(ShoppingCartVM.orderHead.Id, session.Id, session.PaymentIntentId);
